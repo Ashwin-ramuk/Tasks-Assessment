@@ -1,0 +1,50 @@
+q:
+You will be given an array of positive integers. The array should be sorted by the amount of distinct perfect squares and reversed, that can be generated from each number permuting its digits.
+
+E.g.: arr = [715, 112, 136, 169, 144]
+
+Number   Perfect Squares w/ its Digits   Amount
+ 715                -                       		0
+ 112               121                      	1
+ 136               361                      	1
+ 169           169, 196, 961                	3
+ 144             144, 441                   	2
+
+So the output will have the following order: [169, 144, 112, 136, 715]
+
+When we have two or more numbers with the same amount of perfect squares in their permutations, we sorted by their values.
+In the example given above, we can see that 112 and 136 both generate a perfect square. So 112 comes first.
+
+
+soln:
+
+def sort_by_perfsq(arr)
+  # your code here
+  has=[]
+  for i in 0...arr.length
+    num=arr[i]
+    gen=num.to_s.chars.to_a.permutation.map(&:join).map(&:to_i).uniq 		   #generates permutations
+    cnt = 0 
+    for j in 0...gen.length
+      sq=Math.sqrt(gen[j])
+      if sq%1 == 0
+        cnt += 1
+      end
+    end
+    has.push(cnt)
+  end
+  n=arr.length
+  for i in 0...n
+    for j in 0...n-i-1
+      if has[j] < has[j+1]
+        t=has[j]
+        has[j]=has[j+1]
+        has[j+1]=t
+        t=arr[j]
+        arr[j]=arr[j+1]
+        arr[j+1]=t
+      end
+    end
+  end    #sort end
+  arr
+end

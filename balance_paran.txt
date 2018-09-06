@@ -1,0 +1,48 @@
+Q:
+Write a function that takes a string of braces, and determines if the order of the braces is valid. It should return true if the string is valid, and false if it's invalid.
+
+This Kata is similar to the Valid Parentheses Kata, but introduces new characters: brackets [], and curly braces {}. Thanks to @arnedag for the idea!
+
+All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+What is considered Valid?
+
+A string of braces is considered valid if all braces are matched with the correct brace.
+
+
+soln:
+def validBraces(braces)
+  # TODO
+  paran=0
+  sq=0
+  cnt=0
+  curl=0
+  for i in 0...braces.length
+    if braces[i].chr == '('
+      paran+=1
+    elsif braces[i].chr == '{'
+      curl+=1
+    elsif braces[i].chr == '['
+      sq+=1
+    elsif braces[i].chr == ')'
+      paran-=1
+    elsif braces[i].chr == '}'
+      curl-=1
+    elsif braces[i].chr == ']'
+      sq-=1
+    end
+    if sq == 0
+      cnt+=1
+    end
+    if curl == 0
+      cnt+=1
+    end
+    if sq == 0
+      cnt+=1
+    end
+    if cnt == 3
+      return true
+    else
+      return false
+    end
+  end
+end
